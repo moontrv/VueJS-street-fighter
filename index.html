@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Street Fighter</title>
+    <script src="https://npmcdn.com/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/app.css" />
+  </head>
+  <body>
+    <div id="app" class="container">
+      <section class="row">
+        <div class="col-sm-6 columns">
+          <h1 class="text-center">SELF</h1>
+          <div class="healthbar">
+            <div
+              class="healthbar text-center"
+              style="background-color: green; margin: 0; color: white;"
+              :style="{width: playerHealth + '%'}"
+            >
+              {{ playerHealth }}
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 columns">
+          <h1 class="text-center">ONLINE PLAYER</h1>
+          <div class="healthbar">
+            <div
+              class="healthbar text-center"
+              style="background-color: green; margin: 0; color: white;"
+              :style="{width: onlinePlayerHealth + '%'}"
+            >
+              {{ onlinePlayerHealth }}
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="row controls" v-if="!gameIsRunning">
+        <div class="col-sm-12 columns">
+          <button class="btn btn-primary m-btn-round" @click="startGame">
+            START NEW GAME
+          </button>
+        </div>
+      </section>
+      <section class="row controls" v-else>
+        <div class="col-sm-12 columns">
+          <button class="btn btn-danger m-btn-round" @click="attack">
+            ATTACK
+          </button>
+          <button class="btn btn-warning m-btn-round" @click="specialAttack">
+            SPECIAL ATTACK
+          </button>
+          <button class="btn btn-success m-btn-round" @click="heal">
+            HEAL
+          </button>
+          <button class="btn btn-secondary m-btn-round" @click="giveUp">
+            GIVE UP
+          </button>
+        </div>
+      </section>
+      <section class="row log" v-if="turns.length > 0">
+        <div class="col-sm-12 columns">
+          <ul class="list-group">
+            <li
+              v-for="turn in turns"
+              class="list-group-item"
+              :class="{'self-turn': turn.isPlayer, 'another-turn': !turn.isPlayer}"
+            >
+              {{ turn.text }}
+            </li>
+          </ul>
+        </div>
+      </section>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
